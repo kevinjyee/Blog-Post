@@ -4,8 +4,19 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+html {
+    display: table;
+    margin: auto;
+}
+
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    display: table-cell;
+    vertical-align: middle;
+}
+div.blog-container{
+	width: 900px ;
+  	margin-left: auto ;
+  	margin-right: auto ;
 }
 
 footer {

@@ -29,13 +29,11 @@ public class BlogPost implements Comparable<BlogPost> {
     @SuppressWarnings("unused")
 	private BlogPost() {}
 
-    public BlogPost(User user,  String content) {
+    public BlogPost(User user,  String title, String content) {
 
         this.user = user;
-
+        this.title = title;
         this.content = content;
-        
-        //this.title = title;
 
         date = new Date();
 
@@ -46,7 +44,15 @@ public class BlogPost implements Comparable<BlogPost> {
         return user;
 
     }
-
+    
+    public String getDate() {
+    	return date.toString();
+    }
+    
+    public String getTitle() {
+    	return title;
+    }
+    
     public String getContent() {
 
         return content;

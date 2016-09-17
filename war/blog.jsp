@@ -38,54 +38,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/blog-post.css" rel="stylesheet">
-
-  
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
-
+            
 </head>
 
-  <div class="row">
-
-            <!-- Blog Post Content Column -->
-            <div class="col-lg-8">
-
-                <!-- Blog Post -->
-
-                <!-- Title -->
-                <h1>461L Blog - Official blog where members of the EE461L community can share whatever they want</h1>
-
-                <!-- Author -->
-                <p class="lead">
-                    by <a href="#">Kevin Yee and Davin Siu</a>
-                </p>
-
-                <hr>
-
-                <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Launched on August 23, 2016 at 11:59 PM</p>
-
-                <hr>
-
-                <!-- Preview Image -->
-                <img class="img-responsive" src="JAVA_C_CPP.jpg" alt="">
-
-                <hr>
-
  
 
-  <body>
+<body>
+	<!-- Title -->
+    <h1>461L Blog - Official blog for members of the Fall 2016 EE461L community</h1>
 
- 
+    <!-- Author -->
+    <p class="lead">
+    by Kevin Yee and Davin Siu
+    </p>
 
+    <!-- Blog Page Image -->
+    <p style="text-align:center;"><img src="JAVA_C_CPP.jpg"></p>
+    <hr size="6">     
 <%
  
     UserService userService = UserServiceFactory.getUserService();
@@ -99,9 +75,8 @@
 %>
 
 
-<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
-
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
+<p>Hello, ${fn:escapeXml(user.nickname)} (<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>)
+. Feel free to browse the blog posts below, or <a href="createblog.jsp">create a new post.</a></p>
 
 <%
 
@@ -109,69 +84,51 @@
 
 %>
 
-<p>Hello!
+<p>Hello. Feel free to browse the blog posts below, but you must
 
-<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a>
 
 to create a new post.</p>
 
-<%
-
-    }
-
-%>
-
- 
-
-
+		<%}%>
+	<!-- Blog Post Content Column -->
+    <div class="blog-container">
+	<div class="row"><!--Blog Content Column-->
 <%
 ObjectifyService.register(BlogPost.class);
 List<BlogPost> posts = ObjectifyService.ofy().load().type(BlogPost.class).list();
 Collections.sort(posts);
-
 if (posts.isEmpty()) {
     %>
-    <p>No posts here :(</p>
+    <div class="col-xs-12"><p>No posts here :(</p></div>
     <%
 } else {
+
     for (BlogPost Post : posts) {
-        if (Post.getUser() == null) {
-            %>
-            <p>An anonymous person wrote:</p>
-            <%
-        } else {
             pageContext.setAttribute("Post_user", Post.getUser());
+            pageContext.setAttribute("Post_date", Post.getDate());
+            pageContext.setAttribute("Post_title", Post.getTitle());
+            pageContext.setAttribute("Post_content", Post.getContent());
             %>
-            <p><b>${fn:escapeXml(Post_user.nickname)}</b> wrote:</p>
-            <%
-        }
-        
-        pageContext.setAttribute("Post_content", Post.getContent());
-        %>
-        <blockquote>
-           
-            <p>${fn:escapeXml(Post_content)}</p>
-        </blockquote>
+        	<div class="col-xs-12">
+        		<h1>${fn:escapeXml(Post_title)}</h1>
+        	</div>
+        	<div class="col-xs-4">
+        		<h4>${fn:escapeXml(Post_user.nickname)}</h4>
+        	</div>
+        	<div class="col-xs-4 col-xs-offset-4">
+        		<h4>${fn:escapeXml(Post_date)}</h4>
+        	</div>
+        	<div class="col-xs-12">
+        		<h2>${fn:escapeXml(Post_content)}</h2>
+        	</div>
         <%
     }
 }
 %>
-
- 
-
-    <form action="/sign" method="post">
-
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-
-      <div><input type="submit" value="Post Greeting" /></div>
-
-      <input type="hidden" name="guestbookName"/>
-
-    </form>
-
- 
-
-  </body>
+	</div>
+	</div>
+</body>
 
 </html>
 

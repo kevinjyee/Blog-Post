@@ -32,15 +32,19 @@ public class BlogServlet extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         
-      //  String title = req.getParameter("title");
-        String content = req.getParameter("content");
+        String title = req.getParameter("blogtitle");
+        String content = req.getParameter("blogcontent");
        
         BlogPost post;
 
-        post = new BlogPost(user, content);
+        post = new BlogPost(user, title, content);
  
         ofy().save().entity(post).now();   // synchronous
        
         resp.sendRedirect("/blog.jsp");
     }
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp){
+		
+	}
 }
