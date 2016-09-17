@@ -61,22 +61,22 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-                <h1>Blog Post Title</h1>
+                <h1>461L Blog - Official blog where members of the EE461L community can share whatever they want</h1>
 
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="#">Start Bootstrap</a>
+                    by <a href="#">Kevin Yee and Davin Siu</a>
                 </p>
 
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+                <p><span class="glyphicon glyphicon-time"></span> Launched on August 23, 2016 at 11:59 PM</p>
 
                 <hr>
 
                 <!-- Preview Image -->
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                <img class="img-responsive" src="JAVA_C_CPP.jpg" alt="">
 
                 <hr>
 
@@ -113,7 +113,7 @@
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
-to include your name with greetings you post.</p>
+to create a new post.</p>
 
 <%
 
