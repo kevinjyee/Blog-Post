@@ -24,17 +24,61 @@
 
 <%@ page import="com.googlecode.objectify.*" %>
 
-
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
  
 
 <html>
 
- <head>
-   <link type="text/css" rel="stylesheet" href="/css/main.css" />
- </head>
+<head>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Post - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/blog-post.css" rel="stylesheet">
+
+  
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+
+</head>
+
+  <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+
+                <!-- Blog Post -->
+
+                <!-- Title -->
+                <h1>Blog Post Title</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by <a href="#">Start Bootstrap</a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+
+                <hr>
+
+                <!-- Preview Image -->
+                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+
+                <hr>
 
  
 
@@ -79,79 +123,49 @@ to include your name with greetings you post.</p>
 
  
 
+
 <%
+ObjectifyService.register(BlogPost.class);
+List<BlogPost> posts = ObjectifyService.ofy().load().type(BlogPost.class).list();
+Collections.sort(posts);
 
-    	
-
-		ObjectifyService.register(BlogPost.class);
-
-		List<BlogPost> posts= ObjectifyService.ofy().load().type(BlogPost.class).list();   
-
-		Collections.sort(posts); 
-
-   
-
-       if (posts.isEmpty()) {
-
-       %>
-
-        <p> No content to show :</p>
-
-        
-
-    } 
-
-       <%-- Potnetiall only show first 3 posts --%>
-<%
-        for (BlogPost each : posts) {
-
-            pageContext.setAttribute("greeting_content",
-
-                                     each.getContent());
-
-            if (each.getUser() == null) {
-
-                %>
-
-                <p>An anonymous person wrote:</p>
-
-                <%
-
-            } else {
-
-                pageContext.setAttribute("greeting_user",
-
-                                         each.getUser());
-
-                %>
-
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
-
-                <%
-
-            }
-
+if (posts.isEmpty()) {
+    %>
+    <p>No posts here :(</p>
+    <%
+} else {
+    for (BlogPost Post : posts) {
+        if (Post.getUser() == null) {
             %>
-
-            <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
-
+            <p>An anonymous person wrote:</p>
             <%
-
+        } else {
+            pageContext.setAttribute("Post_user", Post.getUser());
+            %>
+            <p><b>${fn:escapeXml(Post_user.nickname)}</b> wrote:</p>
+            <%
         }
-
+        
+        pageContext.setAttribute("Post_content", Post.getContent());
+        %>
+        <blockquote>
+           
+            <p>${fn:escapeXml(Post_content)}</p>
+        </blockquote>
+        <%
     }
-
+}
 %>
 
  
 
-    <form action="/ofysign" method="post">
+    <form action="/sign" method="post">
 
       <div><textarea name="content" rows="3" cols="60"></textarea></div>
 
       <div><input type="submit" value="Post Greeting" /></div>
 
-      <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
+      <input type="hidden" name="guestbookName"/>
 
     </form>
 

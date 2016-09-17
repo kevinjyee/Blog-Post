@@ -8,6 +8,9 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import com.googlecode.objectify.ObjectifyService;
+
+import blog1.BlogPost;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
@@ -29,12 +32,15 @@ public class BlogServlet extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         
-        String title = req.getParameter("title");
+      //  String title = req.getParameter("title");
         String content = req.getParameter("content");
-        BlogPost post = new BlogPost(user, title, content);
+       
+        BlogPost post;
+
+        post = new BlogPost(user, content);
  
         ofy().save().entity(post).now();   // synchronous
- 
+       
         resp.sendRedirect("/blog.jsp");
     }
 }
