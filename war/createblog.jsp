@@ -38,13 +38,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+   
 
     <!-- Custom CSS -->
-    <link href="css/blog-post.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
   
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -60,9 +59,11 @@
     	<label for="blogtitle">Title</label>
     	<input type="text" class="form-control" name="blogtitle" placeholder="Enter title">
   	</div>
+  	
     	<label for="blogcontent">Content</label>
     	<textarea class="form-control" rows="20" name="blogcontent" placeholder="Enter blog content here">
   		</textarea>
+  		
   	<button type="submit" class="btn btn-default">Submit Post</button>
   	<a class="btn btn-default" href="blog.jsp">Cancel</a>
   </form>

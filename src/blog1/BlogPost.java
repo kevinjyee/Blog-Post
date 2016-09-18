@@ -65,11 +65,11 @@ public class BlogPost implements Comparable<BlogPost> {
 
         if (date.after(other.date)) {
 
-            return 1;
+            return -1;
 
         } else if (date.before(other.date)) {
 
-            return -1;
+            return 1;
 
         }
 
