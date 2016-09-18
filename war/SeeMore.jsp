@@ -119,7 +119,7 @@ if (posts.isEmpty()) {
     <%
 } else {
 
-    for(int i =0; i < 6; i++)
+    for(int i =0; i < posts.size(); i++)
     {
             pageContext.setAttribute("Post_user", posts.get(i).getUser());
             pageContext.setAttribute("Post_date", posts.get(i).getDate());
@@ -151,7 +151,7 @@ if (posts.isEmpty()) {
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="next">
-                        <a href="SeeMore.jsp">Older Posts &rarr;</a>
+                        <a href="blog.jsp">See Less;</a>
                     </li>
                 </ul>
             </div>
