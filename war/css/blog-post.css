@@ -19,6 +19,16 @@ div.blog-container{
   	margin-right: auto ;
 }
 
+h2.post-title{
+	border-bottom: 1px solid black;
+}
+
+div.post-preview{
+	border: 1px solid black;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 textarea{
 	overflow-y: scroll;
     height: 100px;

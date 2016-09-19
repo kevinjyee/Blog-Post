@@ -68,7 +68,7 @@
 
 <body>
 	<!-- Title -->
-    <h1>461L Blog - Official blog for members of the Fall 2016 EE461L community</h1>
+    <h1>Official blog for members of the Fall 2016 EE461L community</h1>
 
     <!-- Author -->
     <p class="lead">
