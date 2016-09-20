@@ -83,9 +83,9 @@ public class BlogServlet extends HttpServlet {
 			Multipart mp = new MimeMultipart();
 			MimeBodyPart htmlPart = new MimeBodyPart();
 			String htmlBody = "Hello subscriber,\nHere is your daily digest of blogs"
-							+ " that have been posted within the past 24 hours.\n\n<HR>";
+							+ " that have been posted within the past 24 hours.\n\n";
 			for(BlogPost blog: recent_posts){
-				htmlBody += "<HR><b>" + blog.getTitle() + "</b><i>Posted by " + blog.getUser() + " on" + blog.getDate() + "</i>"
+				htmlBody += "<HR><b>" + blog.getTitle() + "</b><i> Posted by " + blog.getUser() + " on " + blog.getDate() + "</i>"
 						  + "<p>" + blog.getContent() + "</p>";
 			}
 		

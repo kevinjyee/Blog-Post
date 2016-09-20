@@ -90,7 +90,7 @@
 	ObjectifyService.register(SubscribedUser.class);
 	List<SubscribedUser> subusrs = ObjectifyService.ofy().load().type(SubscribedUser.class).list();
 	for(SubscribedUser subusr: subusrs){
-		if(subusr.getId() == user.getUserId()){
+		if(subusr.getId().equals(user.getUserId())){
 			subscribed = true;
 		}
 	}
