@@ -144,7 +144,7 @@ if (posts.isEmpty()) {
                         </h2>
                       		${fn:escapeXml(Post_content)}
                     </a>
-                    <p class="post-meta">Posted by <a href="#">${fn:escapeXml(Post_user)}</a> on ${fn:escapeXml(Post_date)}</p>
+                    <p class="post-meta">Posted by <b>${fn:escapeXml(Post_user)}</b> on ${fn:escapeXml(Post_date)}</p>
                 </div>
             
                <%
