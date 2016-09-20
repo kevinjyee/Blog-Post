@@ -11,6 +11,7 @@
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 
 <%@ page import="blog1.BlogPost" %>
+<%@ page import="blog1.SubscribedUser" %>
 
 <%@ page import="com.google.appengine.api.datastore.Query" %>
 
@@ -67,15 +68,6 @@
  
 
 <body>
-	<!-- Title -->
-    <h1>Official blog for members of the Fall 2016 EE461L community</h1>
-
-    <!-- Author -->
-    <p class="lead">
-    by Kevin Yee and Davin Siu
-    </p>
-
-    <!-- Blog Page Image -->
   
 <%
  
@@ -92,11 +84,24 @@
 
 <p>Hello, ${fn:escapeXml(user.nickname)} (<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>)
 . Feel free to browse the blog posts below, or <a href="createblog.jsp">create a new post.</a></p>
-
 <%
-
-    } else {
-
+	boolean subscribed = false;
+	ObjectifyService.register(SubscribedUser.class);
+	List<SubscribedUser> subusrs = ObjectifyService.ofy().load().type(SubscribedUser.class).list();
+	for(SubscribedUser subusr: subusrs){
+		if(subusr.getId() == user.getUserId()){
+			subscribed = true;
+		}
+	}
+	if(!subscribed){
+		%><p>Click <a href="/subscribe.jsp">here</a> to receive daily updates on recent blog posts via email!</p>
+<%	
+	}else{
+%>		  <p>You are currently subscribed to our mailing list. Click <a href="/unsubscribe.jsp">here</a> if you wish to stop 
+		  	receiving emails.
+		  </p>
+<%
+    }}else{
 %>
 
 <p>Hello. Feel free to browse the blog posts below, but you must
@@ -118,8 +123,8 @@ if (posts.isEmpty()) {
     <div class="col-xs-12"><p>No posts here :(</p></div>
     <%
 } else {
-
-    for(int i =0; i < 6; i++)
+	int imax = Math.min(posts.size(),5);
+    for(int i =0; i < imax; i++)
     {
             pageContext.setAttribute("Post_user", posts.get(i).getUser());
             pageContext.setAttribute("Post_date", posts.get(i).getDate());

@@ -23,6 +23,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
     </servlet-mapping>
     
+    <servlet>
+		<servlet-name>CronServlet</servlet-name>
+		<servlet-class>blog1.BlogServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CronServlet</servlet-name>
+		<url-pattern>/cron/email</url-pattern>
+	</servlet-mapping>
+    
     	
 <filter>
 

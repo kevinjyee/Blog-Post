@@ -61,8 +61,7 @@
   	</div>
   	
     	<label for="blogcontent">Content</label>
-    	<textarea class="form-control" rows="20" name="blogcontent" placeholder="Enter blog content here">
-  		</textarea>
+    	<textarea class="form-control" rows="20" name="blogcontent" placeholder="Enter blog content here"></textarea>
   		
   	<button type="submit" class="btn btn-default">Submit Post</button>
   	<a class="btn btn-default" href="blog.jsp">Cancel</a>
