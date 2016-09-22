@@ -11,7 +11,6 @@
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 
 <%@ page import="blog1.BlogPost" %>
-
 <%@ page import="blog1.SubscribedUser" %>
 
 <%@ page import="com.google.appengine.api.datastore.Query" %>
@@ -53,7 +52,7 @@
  <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-image: url('img/edit3.jpg')">
-        <div class="container">
+        <div class="container" style="margin: 0 auto; width: 1300px" >
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
@@ -124,7 +123,7 @@ if (posts.isEmpty()) {
     <div class="col-xs-12"><p>No posts here :(</p></div>
     <%
 } else {
-
+	int imax = Math.min(posts.size(),5);
     for(int i =0; i < posts.size(); i++)
     {
             pageContext.setAttribute("Post_user", posts.get(i).getUser());
@@ -134,7 +133,7 @@ if (posts.isEmpty()) {
             %>
         <%-- Main Content --%>
         
-    <div class="container">
+    <div class="container" style = "width: 100%"  >
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-preview">
@@ -150,23 +149,19 @@ if (posts.isEmpty()) {
                <%
     }
 }
-%>
-                
+			   %>   
                 <br>
                 <br>
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="next">
-                        <a href="blog.jsp">See Less;</a>
+                        <a href="SeeMore.jsp">Older Posts &rarr;</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-
     <hr>
-
-
 	</div>
 	</div>
 </body>
