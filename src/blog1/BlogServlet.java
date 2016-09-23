@@ -131,7 +131,10 @@ public class BlogServlet extends HttpServlet {
 		
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
-        
+        if(user == null){
+        	resp.sendRedirect("/blog.jsp"); //user shouldn't be able to get to this point if not logged in, but safe measure
+        	return;
+        }
         String title = req.getParameter("blogtitle");
         String content = req.getParameter("blogcontent");
         if(title == "" && content != ""){
