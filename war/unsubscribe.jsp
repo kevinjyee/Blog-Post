@@ -47,10 +47,14 @@
     </header>
 <body>
 	<%UserService userService = UserServiceFactory.getUserService();
+        if(userService.getCurrentUser() == null){
+        	%><p>You must be signed in to perform this action.</p><a class="btn btn-default" href="blog.jsp">Return to home page</a><%
+        }else{
         SubscribedUser user = new SubscribedUser(userService.getCurrentUser());
         ObjectifyService.register(SubscribedUser.class);
 		ObjectifyService.ofy().delete().type(SubscribedUser.class).id(user.getId()).now();
 	%>
 	<p>You have cancelled your subscription to our mailing list. You will no longer receive daily email updates about recent blog posts.</p>
     <a class="btn btn-default" href="blog.jsp">Return to home page</a>
+    	<%}%>
 </body>

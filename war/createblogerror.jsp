@@ -52,7 +52,10 @@
 
 </head>
 
-  <h1>Create a new Blog Post</h1>      
+  <h1>Create a new Blog Post</h1>  
+  <div class="panel panel-danger">
+  <div class="panel-heading">Error: ${fn:escapeXml(message)}</div>
+  </div>    
   <%UserService userService = UserServiceFactory.getUserService();
   	if(userService.getCurrentUser() == null){
   	%><p>You must <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a> to create a new post.

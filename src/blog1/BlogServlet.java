@@ -1,6 +1,8 @@
 package blog1;
 
 import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import com.google.appengine.api.users.User;
 
@@ -125,20 +127,36 @@ public class BlogServlet extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-                throws IOException {
+                throws ServletException,IOException {
 		
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         
         String title = req.getParameter("blogtitle");
         String content = req.getParameter("blogcontent");
-       
-        BlogPost post;
+        if(title == "" && content != ""){
+        	String message = "Title field cannot be left blank.";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("createblogerror.jsp").forward(req,resp);
+        }
+        else if(title != "" && content == ""){
+        	String message = "Content field cannot be left blank.";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("createblogerror.jsp").forward(req,resp);
+        }
+        else if (title == "" && content == ""){
+        	String message = "Title and Content fields cannot be left blank.";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("createblogerror.jsp").forward(req,resp);
+        }		
+        else{
+        	BlogPost post;
 
-        post = new BlogPost(user, title, content);
+        	post = new BlogPost(user, title, content);
  
-        ofy().save().entity(post).now();   // synchronous
+        	ofy().save().entity(post).now();   // synchronous
        
-        resp.sendRedirect("/blog.jsp");
+        	resp.sendRedirect("/blog.jsp");
+        }
     }
 }

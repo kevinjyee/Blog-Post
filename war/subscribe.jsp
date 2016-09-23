@@ -47,8 +47,11 @@
     </header>
 <body>
 	
-	<%UserService userService = UserServiceFactory.getUserService();
+	<%  UserService userService = UserServiceFactory.getUserService();
 		ObjectifyService.register(SubscribedUser.class);
+        if(userService.getCurrentUser() == null){
+        	%><p>You must be signed in to perform this action.</p><a class="btn btn-default" href="blog.jsp">Return to home page</a><%
+        }else{
         SubscribedUser user = new SubscribedUser(userService.getCurrentUser());
         List<SubscribedUser> subscribed_users = ObjectifyService.ofy().load().type(SubscribedUser.class).list(); //load subscribed users
         boolean alreadySubscribed = false;
@@ -64,4 +67,5 @@
     
     <p>You are now subscribed to our mailing list. You will receive daily email updates about recent blog posts.</p>
     <a class="btn btn-default" href="blog.jsp">Return to home page</a>
+    	<%}%>
 </body>
