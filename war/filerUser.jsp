@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="java.util.List" %>
-
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.Collections" %>
-
+<%@ page import="java.util.LinkedList" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.google.appengine.api.users.User" %>
 
 <%@ page import="com.google.appengine.api.users.UserService" %>
@@ -109,8 +111,46 @@
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a>
 
 to create a new post.</p>
+<br>
+
+
 
 		<%}%>
+<form action="filerUser.jsp" method="post">
+
+       Search Post by User:
+       <select id="selectedRecord" name="selectedRecord">
+<%
+ObjectifyService.register(BlogPost.class);
+List<BlogPost> posts1 = ObjectifyService.ofy().load().type(BlogPost.class).list();
+Set<User> users = new HashSet<User>();
+
+
+for(int i =0; i < posts1.size();i++)
+{
+	users.add((posts1.get(i).getUser()));
+}
+%>
+<%
+for(User individual : users)
+{
+	pageContext.setAttribute("Post_user", individual);
+    %>
+
+       
+
+          <option value = ${fn:escapeXml(Post_user)} >${fn:escapeXml(Post_user)}
+         
+         
+          </option>
+
+<% } %>
+
+        </select>
+
+        <input type="submit" value="Submit" align="middle"> 
+
+    </form>
 	<!-- Blog Post Content Column -->
     <div class="blog-container">
 	<div class="row"><!--Blog Content Column-->
@@ -118,18 +158,35 @@ to create a new post.</p>
 ObjectifyService.register(BlogPost.class);
 List<BlogPost> posts = ObjectifyService.ofy().load().type(BlogPost.class).list();
 Collections.sort(posts);
+List<BlogPost> userposts = new ArrayList<BlogPost>();
 if (posts.isEmpty()) {
     %>
     <div class="col-xs-12"><p>No posts here :(</p></div>
     <%
 } else {
-	int imax = Math.min(posts.size(),5);
-    for(int i =0; i < posts.size(); i++)
-    {
-            pageContext.setAttribute("Post_user", posts.get(i).getUser());
-            pageContext.setAttribute("Post_date", posts.get(i).getDate());
-            pageContext.setAttribute("Post_title",posts.get(i).getTitle());
-            pageContext.setAttribute("Post_content",posts.get(i).getContent());
+	String currentuser = request.getParameter("selectedRecord");
+	pageContext.setAttribute("CurrentUser", currentuser);
+	pageContext.setAttribute("Email", posts.get(0).getUser().getNickname());
+	int count = 0;
+	for(int i =0; i < posts.size(); i++)
+	{
+	if(currentuser.equals(posts.get(i).getUser().getNickname()))
+	{
+		count++;
+		userposts.add(posts.get(i));
+		
+	}
+	}
+	%>
+	
+	<% 
+    for(int i =0; i < count; i++)
+    {		
+            pageContext.setAttribute("Post_user", userposts.get(i).getUser());
+            pageContext.setAttribute("Post_date", userposts.get(i).getDate());
+            pageContext.setAttribute("Post_title",userposts.get(i).getTitle());
+            pageContext.setAttribute("Post_content",userposts.get(i).getContent());
+    		
             %>
         <%-- Main Content --%>
         
@@ -164,6 +221,28 @@ if (posts.isEmpty()) {
     <hr>
 	</div>
 	</div>
+	
+	 <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://github.com/kevinjyee/Blog-Post">
+                                <span class="fa-stack fa-lg"> 
+                                    <img src="img/github-logo-icon-30.png" alt="logo" style="width:100px;height:100px;">
+									See our Blog Project here at our Github repo!                                
+                                </span>
+                            </a>
+                        </li>
+                      
+                    </ul>
+                    <p class="copyright text-muted">Kevin and Davin 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
