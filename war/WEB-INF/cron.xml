@@ -3,7 +3,7 @@
 <cron>
 <url>/cron/email</url>
 <description>Daily Digest email</description>
-<schedule>every day 12:00</schedule>
+<schedule>every day 17:00</schedule>
 <timezone>America/Chicago</timezone>
 </cron>
 </cronentries>
